@@ -42,9 +42,8 @@
 ; 
 
 
-(foldr beside empty-image 
-       (local [(define (make-ellipse n) (ellipse n (* 2 n) "solid" "blue"))] 
-         (build-list 20 make-ellipse)))
+(local [(define (make-ellipse n) (ellipse n (* 2 n) "solid" "blue"))]
+  (foldr beside empty-image (build-list 20 make-ellipse)))
 
 ; 
 ; PROBLEM C:
