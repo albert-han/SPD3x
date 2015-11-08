@@ -11,20 +11,23 @@
 ; 
 
 
-(define I1 (rectangle 10 20 "solid" "red"))
-(define I2 (rectangle 30 20 "solid" "yellow"))
-(define I3 (rectangle 40 50 "solid" "green"))
-(define I4 (rectangle 60 50 "solid" "blue"))
-(define I5 (rectangle 90 90 "solid" "orange"))
-
-(define LOI1 (list I1 I2 I3 I4 I5))
-
 
 ;; (listof Image) -> (listof Image)
-;; produce a list containing only images that are wide
+;; produce a list containing only images for which wide? produces true
+
+(check-expect (wide-only empty) empty)
+(check-expect (wide-only (list (rectangle 40 20 "outline" "black")
+                               (rectangle 20 40 "outline" "black")))
+              (list (rectangle 40 20 "outline" "black")))
 
 (define (wide-only loi)
-  (local [(define (wide? i) (> (image-width i) (image-height i)))]
-  (filter wide? loi)))
+  (filter wide? loi))
 
-(wide-only LOI1)
+;; Image -> Boolean
+;; produce true if image-width is > image-height
+(check-expect (wide? (rectangle 10 20 "solid" "blue")) false)
+(check-expect (wide? (rectangle 20 20 "solid" "blue")) false)
+(check-expect (wide? (rectangle 30 20 "solid" "blue")) true)
+
+(define (wide? img)
+  (> (image-width img) (image-height img)))
