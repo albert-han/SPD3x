@@ -1,0 +1,52 @@
+(define (remove-debtors act)
+  (cond [(false? act) false]
+        [else
+         (if (negative? (node-bal act))
+             (join (remove-debtors (node-l act))
+                   (remove-debtors (node-r act)))
+             (make-node (node-id act)
+                        (node-name act)
+                        (node-bal act)
+                        (remove-debtors (node-l act))
+                        (remove-debtors (node-r act))))]))
+
+(define (remove-profs act)
+  (cond [(false? act) false]
+        [else
+         (if (has-prefix? "Prof." (node-name act))
+             (join (remove-profs (node-l act))
+                   (remove-profs (node-r act)))
+             (make-node (node-id act)
+                        (node-name act)
+                        (node-bal act)
+                        (remove-profs (node-l act))
+                        (remove-profs (node-r act))))]))
+
+(define (remove-acts pred act)
+  (cond [(false? act) false]
+        [else
+         (if (pred act) 
+             (join (remove-acts pred (node-l act))
+                   (remove-acts pred (node-r act)))
+             (make-node (node-id act)
+                        (node-name act)
+                        (node-bal act)
+                        (remove-acts pred (node-l act))
+                        (remove-acts pred (node-r act))))]))
+
+
+The reason this needs to be called (pred act) is because
+both (node-bal act) & (node-name act) and both (negative?) & (has-prefix? "Prof.") are varying positions
+
+so we need to define what gets replaced here using local definitions.
+debtor? replaces the (pred act) spot on remove-debtors?
+(define (remove-debtors act)
+  (local [(define (debtor? act) (negative? (node-bal act)))]
+    (remove-acts debtor? act)))
+prof? replaces that spot on remove-acts
+(define (remove-profs act)
+  (local [(define (prof? act) (has-prefix? "Prof." (node-name act)))]
+    (remove-acts prof? act)))
+
+the abstract idea is removing nodes based on some characteristic of the node,
+both the way the node is removed and the characteristic varies, so each is given an abstract parameter.
