@@ -1,0 +1,154 @@
+(define-struct elt (name data subs))
+(define F1 (make-elt "F1" 1 empty))
+(define F2 (make-elt "F2" 2 empty))
+(define F3 (make-elt "F3" 3 empty))
+(define D4 (make-elt "D4" 0 (list F1 F2)))
+(define D5 (make-elt "D5" 0 (list F3)))
+(define D6 (make-elt "D6" 0 (list D4 D5)))
+
+(define (find n e)
+  (local [(define (find--element n e)
+            (if (string=? (elt-name e) n)
+                (elt-data e)
+                (find--loe n (elt-subs e))))
+          
+          (define (find--loe n loe)
+            (cond [(empty? loe) false]
+                  [else
+                   (local [(define try (find--element n (first loe)))]
+                     (if (not (false? try))
+                         try
+                         (find--loe n (rest loe))))]))]
+          
+          (find--element n e)
+
+    
+(find "F3" D6)
+    
+(define (find--element_0 n e)
+  (if (string=? (elt-name e) n) 
+      (elt-data e) 
+      (find--loe_0 n (elt-subs e))))
+(define (find--loe_0 n loe)
+  (cond ((empty? loe) false)
+        (else
+         (local ((define try (find--element_0 n (first loe))))
+           (if (not (false? try)) 
+               try 
+               (find--loe_0 n (rest loe)))))))
+
+(find--element_0 "F3" D6)
+
+(find--loe_0 "F3" (list D4 D5))
+
+(define try_1 (find--element_0 "F3" D4))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_1 (find--loe_0 "F3" F1 F2))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_2 (find--element_0 "F3" F1))
+(define try_1
+  (if (not (false? try_2))
+      try_2
+      (find--loe_0 "F3" F2)))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_2 (find--loe_0 "F3" empty))
+(define try_1
+  (if (not (false? try_2))
+      try_2
+      (find--loe_0 "F3" F2)))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_2 false)
+(define try_1
+  (find--loe_0 "F3" F2)))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_2 false)
+(define try_3 (find--element_0 "F3" F2))
+(define try_1
+  (if (not (false? try_3))
+      try_3
+      (find--loe_0 "F3" empty)))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_2 false)
+(define try_3 (find--loe_0 "F3" empty))
+(define try_1
+  (if (not (false? try_3))
+      try_3
+      (find--loe_0 "F3" empty)))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_2 false)
+(define try_3 false)
+(define try_1
+  (find--loe_0 "F3" empty))
+(if (not (false? try_1))
+    try_1
+    (find--loe_0 (list D5)))
+
+(define try_2 false)
+(define try_3 false)
+(define try_1 false)
+(find--loe_0 (list D5))
+
+(define try_2 false)
+(define try_3 false)
+(define try_1 false)
+(define try_4 (find--element_0 "F3" D5))
+(if (not (false? try_4))
+    try_4
+    (find--loe_0 empty))
+         
+(define try_2 false)
+(define try_3 false)
+(define try_1 false)
+(define try_4 (find--loe_0 "F3" F3))
+(if (not (false? try_4))
+    try_4
+    (find--loe_0 empty))
+
+(define try_2 false)
+(define try_3 false)
+(define try_1 false)
+(define try_5 (find--element "F3" F3))
+(define try_4 
+  (if (not (false? try_5))
+      try_5
+      (find--loe_0 empty)))
+(if (not (false? try_4))
+    try_4
+    (find--loe_0 empty))
+
+(define try_2 false)
+(define try_3 false)
+(define try_1 false)
+(define try_5 3)
+(define try_4 3)
+(if (not (false? try_4))
+    try_4
+    (find--loe_0 empty))
+
+(define try_2 false)
+(define try_3 false)
+(define try_1 false)
+(define try_5 3)
+(define try_4 3)
+3
