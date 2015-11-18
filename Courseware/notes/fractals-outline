@@ -5,6 +5,12 @@
 (define BAR-HEIGHT 20)
 (define SPACING-HEIGHT (/ BAR-HEIGHT 2))
 
+; Termination Argument:
+;   trivial case: (<= s CUTOFF)
+;   reduction step: (/ s 2)
+;   argument: As long as cutoff is > 0 and s starts >= 0 repeated division by 2
+;   will eventually be less than the cutoff
+
 (define (stri s)
   (cond [(<= s CUTOFF) (triangle s "outline" "red")]
         [else
@@ -12,6 +18,12 @@
                   (local [(define sub (stri (/ s 2)))]
                     (above sub 
                            (beside sub sub))))]))
+
+; Termination Argument:
+;   trivial case: (<= s CUTOFF)
+;   reduction step: (/ s 3)
+;   argument: As long as cutoff is > 0 and s starts >= 0 repeated division by 3
+;   will eventually be less than the cutoff
 
 (define (scarpet s)
   (cond [(<= s CUTOFF) (square s "outline" "red")]
@@ -23,6 +35,11 @@
                            (beside sub blk sub)
                            (beside sub sub sub))))]))
 
+; Termination Argument:
+;   trivial case: size is less than TRIVIAL-SIZE
+;   reduction step: reduce size by STEP and recurse on that to build leaves
+;   argument: reduction step reduces size of leaves so eventually it will be 
+;   less than TRIVIAL-SIZE
 
 (define (circle-fractal n)
   (local [(define top-leaf (draw-leaf (* n STEP)))
@@ -38,13 +55,18 @@
         (above leaf
                (beside (rotate 90 leaf) center (rotate -90 leaf))))))
 
+; Termination Argument:
+;   trivial case: (<= w TRIVIAL-SIZE)
+;   reduction step: (/ (- w (* w r)) 2)
+;   argument: as long as CUTOFF is > 0 and 0 <= r < 1, repeatedly multiplying 
+;   w by r (the reduction step) will reduce w to eventually reach the base case.
 
-(define (cantor w)
-  (if (<= w CUTOFF) (rectangle w BAR-HEIGHT "solid" "blue")
-      (local [(define wc (/ w 3))
+(define (cantor w r)
+  (if (<= w TRIVIAL-SIZE) (rectangle w BAR-HEIGHT "solid" "blue")
+      (local [(define wc (* w r))
               (define ws (/ (- w wc) 2))
               (define ctr (rectangle wc BAR-HEIGHT "solid" "white"))
-              (define l/r (cantor ws))]
+              (define l/r (cantor ws r))]
         (above (rectangle w BAR-HEIGHT "solid" "blue")
                (rectangle w SPACING-HEIGHT "solid" "white")
                (beside l/r ctr l/r)))))
