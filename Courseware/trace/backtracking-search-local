@@ -44,21 +44,21 @@
 (define try_1 (find--element_0 "F3" D4))
 (if (not (false? try_1))
     try_1
-    (find--loe_0 (list D5)))
+    (find--loe_0 "F3" (list D5)))
 
 (define try_1 (find--loe_0 "F3" F1 F2))
 (if (not (false? try_1))
     try_1
-    (find--loe_0 (list D5)))
+    (find--loe_0 "F3" (list D5)))
 
 (define try_2 (find--element_0 "F3" F1))
 (define try_1
   (if (not (false? try_2))
       try_2
-      (find--loe_0 "F3" F2)))
+      (find--loe_0 "F3" (list F2))))
 (if (not (false? try_1))
     try_1
-    (find--loe_0 (list D5)))
+    (find--loe_0 "F3" (list D5)))
 
 (define try_2 (find--loe_0 "F3" empty))
 (define try_1
@@ -74,7 +74,7 @@
   (find--loe_0 "F3" F2)))
 (if (not (false? try_1))
     try_1
-    (find--loe_0 (list D5)))
+    (find--loe_0 "F3" (list D5)))
 
 (define try_2 false)
 (define try_3 (find--element_0 "F3" F2))
@@ -84,7 +84,7 @@
       (find--loe_0 "F3" empty)))
 (if (not (false? try_1))
     try_1
-    (find--loe_0 (list D5)))
+    (find--loe_0 "F3" (list D5)))
 
 (define try_2 false)
 (define try_3 (find--loe_0 "F3" empty))
@@ -107,7 +107,7 @@
 (define try_2 false)
 (define try_3 false)
 (define try_1 false)
-(find--loe_0 (list D5))
+(find--loe_0 "F3" (list D5))
 
 (define try_2 false)
 (define try_3 false)
@@ -115,7 +115,7 @@
 (define try_4 (find--element_0 "F3" D5))
 (if (not (false? try_4))
     try_4
-    (find--loe_0 empty))
+    (find--loe_0 "F3" empty))
          
 (define try_2 false)
 (define try_3 false)
@@ -123,7 +123,7 @@
 (define try_4 (find--loe_0 "F3" F3))
 (if (not (false? try_4))
     try_4
-    (find--loe_0 empty))
+    (find--loe_0 "F3" empty))
 
 (define try_2 false)
 (define try_3 false)
@@ -132,10 +132,10 @@
 (define try_4 
   (if (not (false? try_5))
       try_5
-      (find--loe_0 empty)))
+      (find--loe_0 "F3" empty)))
 (if (not (false? try_4))
     try_4
-    (find--loe_0 empty))
+    (find--loe_0 "F3" empty))
 
 (define try_2 false)
 (define try_3 false)
@@ -144,7 +144,7 @@
 (define try_4 3)
 (if (not (false? try_4))
     try_4
-    (find--loe_0 empty))
+    (find--loe_0 "F3" empty))
 
 (define try_2 false)
 (define try_3 false)
