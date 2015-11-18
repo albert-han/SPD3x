@@ -1,0 +1,189 @@
+(define (qsort lon)
+  (if (empty? lon) empty
+      (local [(define p (first lon))]
+        (append (qsort (filter (λ (n) (< n p)) lon))
+                (list p)
+                (qsort (filter (λ (n) (> n p)) lon))))))
+
+(qsort (list 7 8 9)) 
+
+(define p_0 7)
+(append
+ (qsort (filter (lambda (n) (< n p_0)) (list 7 8 9)))
+ (list p_0)
+ (qsort (filter (lambda (n) (> n p_0)) (list 7 8 9))))
+
+(define p_0 7)
+(append
+ ((lambda (lon)
+    (if (empty? lon) empty
+        (local ((define p (first lon)))
+          (append (qsort (filter (lambda (n) (< n p)) lon))
+                  (list p)
+                  (qsort (filter (lambda (n) (> n p)) lon))))))
+  (... (< 7 7) ...)
+  (... (< 8 7) ...)
+  (... (< 9 7) ...))
+ (list p_0)
+ (qsort (filter (lambda (n) (> n p_0)) (list 7 8 9))))
+
+(define p_0 7)
+(append 
+ empty 
+ (list 7) 
+ (qsort (filter (lambda (n) (> n p_0)) (list 7 8 9))))
+
+(define p_0 7)
+(append
+ empty
+ (list 7)
+ ((lambda (lon)
+    (if (empty? lon) empty
+        (local ((define p (first lon)))
+          (append (qsort (filter (lambda (n) (< n p)) lon))
+                  (list p)
+                  (qsort (filter (lambda (n) (> n p)) lon))))))
+  (... (> 7 7) ...)
+  (... (> 8 7) ...) 
+  (... (> 9 7) ...)))
+
+(define p_0 7)
+(define p_1 8)
+(append
+ empty
+ (list 7)
+ (append
+  (qsort (filter (lambda (n) (< n p_1)) (list 8 9)))
+  (list p_1)
+  (qsort (filter (lambda (n) (> n p_1)) (list 8 9)))))
+
+(define p_0 7)
+(define p_1 8)
+(append
+ empty
+ (list 7)
+ (append
+  ((lambda (lon)
+     (if (empty? lon) empty
+         (local ((define p (first lon)))
+           (append (qsort (filter (lambda (n) (< n p)) lon))
+                   (list p)
+                   (qsort (filter (lambda (n) (> n p)) lon))))))
+   (... (< 8 8) ...)
+   (... (< 9 8) ...))
+  (list p_1)
+  (qsort (filter (lambda (n) (> n p_1)) (list 8 9)))))
+
+(define p_0 7)
+(define p_1 8)
+(append
+ empty
+ (list 7)
+ (append 
+  empty 
+  (list 8) 
+  (qsort (filter (lambda (n) (> n p_1)) (list 8 9)))))
+
+(define p_0 7)
+(define p_1 8)
+(append
+ empty
+ (list 7)
+ (append
+  empty
+  (list 8)
+  ((lambda (lon)
+     (if (empty? lon) empty
+         (local ((define p (first lon)))
+           (append (qsort (filter (lambda (n) (< n p)) lon))
+                   (list p)
+                   (qsort (filter (lambda (n) (> n p)) lon))))))
+   (... (> 8 8) ...)
+   (... (> 9 8) ...))))
+
+(define p_0 7)
+(define p_1 8)
+(define p_2 9)
+(append
+ empty
+ (list 7)
+ (append
+  empty
+  (list 8)
+  (append
+   (qsort (filter (lambda (n) (< n p_2)) (list 9)))
+   (list p_2)
+   (qsort (filter (lambda (n) (> n p_2)) (list 9))))))
+
+(define p_0 7)
+(define p_1 8)
+(define p_2 9)
+(append
+ empty
+ (list 7)
+ (append
+  empty
+  (list 8)
+  (append
+   ((lambda (lon)
+      (if (empty? lon) empty
+          (local ((define p (first lon)))
+            (append (qsort (filter (lambda (n) (< n p)) lon))
+                    (list p)
+                    (qsort (filter (lambda (n) (> n p)) lon))))))
+    (... (< 9 9) ...))
+   (list p_2)
+   (qsort (filter (lambda (n) (> n p_2)) (list 9))))))
+
+(define p_0 7)
+(define p_1 8)
+(define p_2 9)
+(append
+ empty
+ (list 7)
+ (append
+  empty
+  (list 8)
+  (append 
+   empty 
+   (list 9) 
+   (qsort (filter (lambda (n) (> n p_2)) (list 9))))))
+
+(define p_0 7)
+(define p_1 8)
+(define p_2 9)
+(append
+ empty
+ (list 7)
+ (append
+  empty
+  (list 8)
+  (append
+   empty
+   (list 9)
+   ((lambda (lon)
+      (if (empty? lon) empty
+          (local ((define p (first lon)))
+            (append (qsort (filter (lambda (n) (< n p)) lon))
+                    (list p)
+                    (qsort (filter (lambda (n) (> n p)) lon))))))
+    (... (> 9 9) ...)))))
+
+(define p_0 7)
+(define p_1 8)
+(define p_2 9)
+(append 
+ empty 
+ (list 7) 
+ (append 
+  empty 
+  (list 8) 
+  (append 
+   empty 
+   (list 9) 
+   empty)))
+
+(define p_0 7)
+(define p_1 8)
+(define p_2 9)
+(append empty (list 7) (append empty (list 8) (append empty (list 9) empty)))
