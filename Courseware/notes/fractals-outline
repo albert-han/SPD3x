@@ -1,0 +1,50 @@
+(require 2htdp/image)
+(define CUTOFF 20)
+(define TRIVIAL-SIZE 4)
+(define STEP 2/5)
+(define BAR-HEIGHT 20)
+(define SPACING-HEIGHT (/ BAR-HEIGHT 2))
+
+(define (stri s)
+  (cond [(<= s CUTOFF) (triangle s "outline" "red")]
+        [else
+         (overlay (triangle s "outline" "red")
+                  (local [(define sub (stri (/ s 2)))]
+                    (above sub 
+                           (beside sub sub))))]))
+
+(define (scarpet s)
+  (cond [(<= s CUTOFF) (square s "outline" "red")]
+        [else
+         (overlay (square s "outline" "red")
+                  (local [(define sub (scarpet (/ s 3)))
+                          (define blk (square (/ s 3) "solid" "white"))]
+                    (above (beside sub sub sub)
+                           (beside sub blk sub)
+                           (beside sub sub sub))))]))
+
+
+(define (circle-fractal n)
+  (local [(define top-leaf (draw-leaf (* n STEP)))
+          (define center (circle n "solid" "blue"))]
+    (above top-leaf
+           (beside (rotate 90 top-leaf) center (rotate -90 top-leaf))
+           (rotate 180 top-leaf))))
+
+(define (draw-leaf n)
+  (if (<= n TRIVIAL-SIZE) (circle n "solid" "blue")
+      (local [(define center (circle n "solid" "blue"))
+              (define leaf (draw-leaf (* n STEP)))]
+        (above leaf
+               (beside (rotate 90 leaf) center (rotate -90 leaf))))))
+
+
+(define (cantor w)
+  (if (<= w CUTOFF) (rectangle w BAR-HEIGHT "solid" "blue")
+      (local [(define wc (/ w 3))
+              (define ws (/ (- w wc) 2))
+              (define ctr (rectangle wc BAR-HEIGHT "solid" "white"))
+              (define l/r (cantor ws))]
+        (above (rectangle w BAR-HEIGHT "solid" "blue")
+               (rectangle w SPACING-HEIGHT "solid" "white")
+               (beside l/r ctr l/r)))))
