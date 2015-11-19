@@ -1,0 +1,180 @@
+(define (qsort lon)
+  (if (empty? lon) empty
+      (local [(define p (first lon))]
+        (append (qsort (filter (λ (n) (< n p)) lon))
+                (list p)
+                (qsort (filter (λ (n) (> n p)) lon))))))
+
+(qsort (list 6 8 1 9 3 7 2))
+
+(define p_0 6)
+(append
+ (qsort (filter (λ (n) (< n p_0)) (list 6 8 1 9 3 7 2)))
+ (list p_0)
+ (qsort (filter (λ (n) (> n p_0)) (list 6 8 1 9 3 7 2))))
+
+(define p_0 6)
+(append
+ (qsort (list 1 3 2))
+ (list p_0)
+ (qsort (filter (λ (n) (> n p_0)) (list 6 8 1 9 3 7 2))))
+
+(define p_0 6)
+(define p_1 1)
+(append
+ (append
+  (qsort (filter (λ (n) (< n p_1)) (list 1 3 2)))
+  (list p_1)
+  (qsort (filter (λ (n) (> n p_1)) (list 1 3 2))))
+ (list p_0)
+ (qsort (filter (λ (n) (> n p_0)) (list 6 8 1 9 3 7 2))))
+
+(define p_0 6)
+(define p_1 1)
+(append
+ (append
+  (qsort empty)
+  1
+  (qsort (list 3 2)))
+ (list p_0)
+ (qsort (filter (λ (n) (> n p_0)) (list 6 8 1 9 3 7 2))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(append
+ (append
+  empty
+  (list 1)
+  (append
+   (qsort (filter (λ (n) (< n p_2)) (list 3 2)))
+   (list p_2)
+   (qsort (filter (λ (n) (> n p_2)) (list 3 2)))))
+ (list p_0)
+ (qsort (filter (λ (n) (> n p_0)) (list 6 8 1 9 3 7 2))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(append
+ (append
+  empty
+  (list 1)
+  (append
+   (append
+    (qsort (filter (λ (n) (< n p_3) (list 2))))
+    (list p_3)
+    (qsort (filter (λ (n) (> n p_3) (list 2)))))
+   (list p_2)
+   (qsort (filter (λ (n) (> n p_2)) (list 3 2)))))
+ (list p_0)
+ (qsort (filter (λ (n) (> n p_0)) (list 6 8 1 9 3 7 2))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(append
+ (append empty (list 1)
+         (append (list 2) (list 3) empty))
+ (list p_0)
+ (qsort (filter (λ (n) (> n p_0)) (list 6 8 1 9 3 7 2))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(append
+ (list 1 2 3)
+ (list 6)
+ (qsort (list 8 9 7)))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(define p_4 8)
+(append
+ (list 1 2 3)
+ (list 6)
+ (append 
+  (qsort (filter (λ (n) (< n p_4)) (list 8 9 7)))
+  (list p_4)
+  (qsort (filter (λ (n) (> n p_4)) (list 8 9 7)))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(define p_4 8)
+(append
+ (list 1 2 3)
+ (list 6)
+ (append 
+  (qsort (list 7))
+  (list p_4)
+  (qsort (filter (λ (n) (> n p_4)) (list 8 9 7)))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(define p_4 8)
+(define p_5 7)
+(append
+ (list 1 2 3)
+ (list 6)
+ (append 
+  (append
+   (qsort (filter (λ (n) (< n p_5)) (list 7)))
+   (list p_5)
+   (qsort (filter (λ (n) (> n p_5)) (list 7))))
+  (list p_4)
+  (qsort (filter (λ (n) (> n p_4)) (list 8 9 7)))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(define p_4 8)
+(define p_5 7)
+(append
+ (list 1 2 3)
+ (list 6)
+ (append 
+  (list 7) 
+  (list 8)
+  (qsort (filter (λ (n) (> n p_4)) (list 8 9 7)))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(define p_4 8)
+(define p_5 7)
+(append
+ (list 1 2 3)
+ (list 6)
+ (append 
+  (list 7) 
+  (list 8)
+  (qsort (list 9))))
+
+(define p_0 6)
+(define p_1 1)
+(define p_2 3)
+(define p_3 2)
+(define p_4 8)
+(define p_5 7)
+(define p_6 9)
+(append
+ (list 1 2 3)
+ (list 6)
+ (append
+  (list 7)
+  (list 8)
+  (append
+   (qsort (filter (λ (n) (< n p_6)) (list 9)))
+   (list p_6)
+   (qsort (filter (λ (n) (> n p_6)) (list 9))))))
